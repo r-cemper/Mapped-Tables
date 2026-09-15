@@ -1,4 +1,4 @@
 cd /home/irisowner/dev
-iris view
 iris session iris < iris.script
+iris view
 exit 0
