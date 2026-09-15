@@ -20,13 +20,13 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 ### Installation
 Clone/git pull the repo into any local directory
 ```
-$ git clone https://github.com/r-cemper/mini-docker.git
+$ git clone https://github.com/r-cemper/Semi-Persistent-Tables.git
 ```
 To build and start the container run:
 ```
 $ docker compose up -d && docker compose logs -f
 ```
-To open IRIS Terminal do:
+To open IRIS console Terminal do:
 ```
 $ docker-compose exec iris iris session iris
 USER>
@@ -39,4 +39,7 @@ To access IRIS System Management Portal
 ```
 http://localhost:52773/csp/sys/UtilHome.csp
 ```
-#### could be used as a template
+## Testing
+Enter iris console or iterm
+or work from SSMp SQL Explorer
+
