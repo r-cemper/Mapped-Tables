@@ -115,7 +115,7 @@ statement prepare time(s)/globals/cmds/disk: 0.0028s/37/4,700/0ms
 ^||PPGI("SSNKey"," 586-48-2608",3)=$lb("","Jenkins,Joshua V.")
 ^||PPGI("SSNKey"," 677-79-9564",1)=$lb("","Nichols,Phyllis F.")
 ```
-And any normal SLEETC just requires the STATIC condition to set the Globals 
+And any normal SELECT just requires the STATIC condition to identify the Globals 
 ```
 [SQL]USER>>SELECT name,city,id from People where SetStorage('||PPG')>0 order by city
 9.      SELECT name,city,id from People where SetStorage('||PPG')>0 order by city
