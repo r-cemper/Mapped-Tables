@@ -1,0 +1,15 @@
+services:
+  iris:
+    image: intersystemsdc/iris-community
+    restart: no
+#    hostname: mini-docker
+#    container_name: iris-mini-docker
+    command: /iris-main
+      -a /home/irisowner/dev/ascript.sh
+      --ISCAgent false
+    ports: 
+      - 1972:1972
+      - 52773:52773
+    volumes:
+      - ./:/home/irisowner/dev
+
