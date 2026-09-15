@@ -1,4 +1,4 @@
-## Semi-Pesistent Tables and Classes
+## Semi-Persistent Tables and Classes
 This means a different approach to global storage.  
 While by default you have generated hard coded storage globals.        
 This example uses local variables with indirection to define   
