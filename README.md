@@ -9,8 +9,8 @@ as before.
 The difference: Class User.Common uses parameter [NoExtent]   
 so it doesn't include a storage definition.  
 The storage to use is then assigned in the individual classes  
-and it is now a static value that defines the Globals to use.
-and is a really simple definition. e.g.:  
+and it is now a static value that defines the Globals to use.   
+And is a really simple definition. e.g.:  
 ```
 Class User.USR Extends User.Common [ Not NoExtent ]
 {
@@ -140,5 +140,6 @@ statement prepare time(s)/globals/cmds/disk: 0.0591s/39,452/216,468/0ms
                                 query class: %sqlcq.USER.cls6
 ---------------------------------------------------------------------------
 ```
+[actual Article](https://community.intersystems.com/post/mapped-tables-and-classes) . . 
 [original Article](https://community.intersystems.com/post/semi-persistent-classes-and-tables)
 
