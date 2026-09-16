@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for UNIX (Ubuntu Server LTS for x86-64 Containers) 2026.1 (Build 234U)" ts="2026-09-16 10:09:58">
+<Class name="User.CLERK">
+<Super>User.Common</Super>
+<TimeChanged>67829,36531.469887967</TimeChanged>
+<TimeCreated>67828,84253.3426863</TimeCreated>
+<NoExtent>0</NoExtent>
+
+<Parameter name="DEFAULTGLOBAL">
+<Type>STRING</Type>
+<Default>^CLERK</Default>
+</Parameter>
+</Class>
+<TableStatsInfo name="User.CLERK.ext">
+  <EndTime>2026-09-15T22:32:40.333685Z</EndTime>
+  <Duration>.029972</Duration>
+  <UserName>UnknownUser</UserName>
+  <SamplePercent>1</SamplePercent>
+  <ExtentSize>2</ExtentSize>
+  <Fields>
+    <FieldStatsInfo>
+      <Name>City</Name>
+      <Selectivity>50.0000%</Selectivity>
+      <AverageFieldSize>8.5</AverageFieldSize>
+      <HasOutlier>false</HasOutlier>
+    </FieldStatsInfo>
+    <FieldStatsInfo>
+      <Name>DOB</Name>
+      <Selectivity>50.0000%</Selectivity>
+      <AverageFieldSize>4</AverageFieldSize>
+      <HasOutlier>false</HasOutlier>
+    </FieldStatsInfo>
+    <FieldStatsInfo>
+      <Name>ID</Name>
+      <Selectivity>1</Selectivity>
+      <AverageFieldSize>3</AverageFieldSize>
+      <HasOutlier>false</HasOutlier>
+    </FieldStatsInfo>
+    <FieldStatsInfo>
+      <Name>Name</Name>
+      <Selectivity>50.0000%</Selectivity>
+      <AverageFieldSize>18.5</AverageFieldSize>
+      <HasOutlier>false</HasOutlier>
+    </FieldStatsInfo>
+    <FieldStatsInfo>
+      <Name>SSN</Name>
+      <Selectivity>50.0000%</Selectivity>
+      <AverageFieldSize>13</AverageFieldSize>
+      <HasOutlier>false</HasOutlier>
+    </FieldStatsInfo>
+    <FieldStatsInfo>
+      <Name>x__classname</Name>
+      <Selectivity>0.0001%</Selectivity>
+      <OutlierValue>""</OutlierValue>
+      <OutlierSelectivity>.999999</OutlierSelectivity>
+      <AverageFieldSize>2</AverageFieldSize>
+      <HasOutlier>true</HasOutlier>
+    </FieldStatsInfo>
+  </Fields>
+  <Maps>
+    <MapStatsInfo>
+      <Name>IDKEY</Name>
+      <BlockCount>4</BlockCount>
+    </MapStatsInfo>
+  </Maps>
+  <StorageInfo>
+    <StorageInfo>
+      <Type>Default Storage</Type>
+      <Name>Default Storage</Name>
+      <Info>1,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>City</Name>
+      <Info>%Library.String,SU</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>DOB</Name>
+      <Info>%Library.Date,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>ID</Name>
+      <Info>%Library.BigInt,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>Name</Name>
+      <Info>%Library.String,SU</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>SSN</Name>
+      <Info>%Library.String,SU</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>x__classname</Name>
+      <Info>%Library.RawString,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Map</Type>
+      <Name>IDKEY</Name>
+      <Info>^CLERKD,I</Info>
+    </StorageInfo>
+  </StorageInfo>
+</TableStatsInfo>
+
+
+<Class name="User.CUST">
+<Super>User.Common</Super>
+<TimeChanged>67829,36486.233601899</TimeChanged>
+<TimeCreated>67828,84253.3426863</TimeCreated>
+<NoExtent>0</NoExtent>
+
+<Parameter name="DEFAULTGLOBAL">
+<Type>STRING</Type>
+<Default>^CUST</Default>
+</Parameter>
+</Class>
+
+
+<Class name="User.Common">
+<Description>
+This sample layout class represents a person.</Description>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>67829,34412.491508945</TimeChanged>
+<TimeCreated>59269,38836.623</TimeCreated>
+<NoExtent>1</NoExtent>
+
+<Property name="Name">
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="POPSPEC" value="Name()"/>
+</Property>
+
+<Property name="SSN">
+<Type>%String</Type>
+<Required>1</Required>
+<Parameter name="POPSPEC" value="SSN()"/>
+</Property>
+
+<Property name="DOB">
+<Type>%Date</Type>
+<Parameter name="POPSPEC" value="Date()"/>
+</Property>
+
+<Property name="City">
+<Type>%String</Type>
+<Parameter name="POPSPEC" value="City()"/>
+</Property>
+
+<Index name="NameDob">
+<Properties>Name,DOB</Properties>
+</Index>
+
+<Index name="SSNKey">
+<Data>Name</Data>
+<Properties>SSN</Properties>
+</Index>
+
+<Index name="NameIDX">
+<Data>SSN</Data>
+<Properties>Name</Properties>
+</Index>
+
+<Method name="POP">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>count:%Integer=10</FormalSpec>
+<ReturnType>%Integer</ReturnType>
+<SqlProc>1</SqlProc>
+<Implementation><![CDATA[ quit ..Populate(count)
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="User.PPG">
+<Super>User.Common</Super>
+<TimeChanged>67829,36524.903043628</TimeChanged>
+<TimeCreated>67828,84253.3426863</TimeCreated>
+<NoExtent>0</NoExtent>
+
+<Parameter name="DEFAULTGLOBAL">
+<Type>STRING</Type>
+<Default>^||PPG</Default>
+</Parameter>
+</Class>
+<TableStatsInfo name="User.PPG.ext">
+  <EndTime>2026-09-15T22:26:14.128467Z</EndTime>
+  <Duration>.000708</Duration>
+  <UserName>UnknownUser</UserName>
+  <SamplePercent>1</SamplePercent>
+  <ExtentSize>0</ExtentSize>
+  <StorageInfo>
+    <StorageInfo>
+      <Type>Default Storage</Type>
+      <Name>Default Storage</Name>
+      <Info>1,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>City</Name>
+      <Info>%Library.String,SU</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>DOB</Name>
+      <Info>%Library.Date,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>ID</Name>
+      <Info>%Library.BigInt,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>Name</Name>
+      <Info>%Library.String,SU</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>SSN</Name>
+      <Info>%Library.String,SU</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>x__classname</Name>
+      <Info>%Library.RawString,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Map</Type>
+      <Name>IDKEY</Name>
+      <Info>^||PPGD,I</Info>
+    </StorageInfo>
+  </StorageInfo>
+</TableStatsInfo>
+
+
+<Class name="User.USR">
+<Super>User.Common</Super>
+<TimeChanged>67829,36472.227591886</TimeChanged>
+<TimeCreated>67828,84253.3426863</TimeCreated>
+<NoExtent>0</NoExtent>
+
+<Parameter name="DEFAULTGLOBAL">
+<Type>STRING</Type>
+<Default>^USR</Default>
+</Parameter>
+</Class>
+<TableStatsInfo name="User.USR.ext">
+  <EndTime>2026-09-15T22:28:00.805215Z</EndTime>
+  <Duration>.065856</Duration>
+  <UserName>UnknownUser</UserName>
+  <SamplePercent>1</SamplePercent>
+  <ExtentSize>5</ExtentSize>
+  <Fields>
+    <FieldStatsInfo>
+      <Name>City</Name>
+      <Selectivity>25.0000%</Selectivity>
+      <AverageFieldSize>9.2</AverageFieldSize>
+      <HasOutlier>false</HasOutlier>
+    </FieldStatsInfo>
+    <FieldStatsInfo>
+      <Name>DOB</Name>
+      <Selectivity>20.0000%</Selectivity>
+      <AverageFieldSize>4</AverageFieldSize>
+      <HasOutlier>false</HasOutlier>
+    </FieldStatsInfo>
+    <FieldStatsInfo>
+      <Name>ID</Name>
+      <Selectivity>1</Selectivity>
+      <AverageFieldSize>3</AverageFieldSize>
+      <HasOutlier>false</HasOutlier>
+    </FieldStatsInfo>
+    <FieldStatsInfo>
+      <Name>Name</Name>
+      <Selectivity>20.0000%</Selectivity>
+      <AverageFieldSize>17</AverageFieldSize>
+      <HasOutlier>false</HasOutlier>
+    </FieldStatsInfo>
+    <FieldStatsInfo>
+      <Name>SSN</Name>
+      <Selectivity>20.0000%</Selectivity>
+      <AverageFieldSize>13</AverageFieldSize>
+      <HasOutlier>false</HasOutlier>
+    </FieldStatsInfo>
+    <FieldStatsInfo>
+      <Name>x__classname</Name>
+      <Selectivity>0.0001%</Selectivity>
+      <OutlierValue>""</OutlierValue>
+      <OutlierSelectivity>.999999</OutlierSelectivity>
+      <AverageFieldSize>2</AverageFieldSize>
+      <HasOutlier>true</HasOutlier>
+    </FieldStatsInfo>
+  </Fields>
+  <Maps>
+    <MapStatsInfo>
+      <Name>IDKEY</Name>
+      <BlockCount>4</BlockCount>
+    </MapStatsInfo>
+  </Maps>
+  <StorageInfo>
+    <StorageInfo>
+      <Type>Default Storage</Type>
+      <Name>Default Storage</Name>
+      <Info>1,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>City</Name>
+      <Info>%Library.String,SU</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>DOB</Name>
+      <Info>%Library.Date,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>ID</Name>
+      <Info>%Library.BigInt,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>Name</Name>
+      <Info>%Library.String,SU</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>SSN</Name>
+      <Info>%Library.String,SU</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Field</Type>
+      <Name>x__classname</Name>
+      <Info>%Library.RawString,</Info>
+    </StorageInfo>
+    <StorageInfo>
+      <Type>Map</Type>
+      <Name>IDKEY</Name>
+      <Info>^USRD,I</Info>
+    </StorageInfo>
+  </StorageInfo>
+</TableStatsInfo>
+
+
+</Export>
