@@ -1,22 +1,30 @@
-## Semi-Persistent Tables and Classes
-This means a different approach to global storage.  
-While by default you have generated hard coded storage globals.        
-This example uses local variables with indirection to define   
-the globals where your data are homed.  
+## Mapped Tables and Classes
+The previous example [Semi-Persistent-Tables](https://openexchange.intersystems.com/package/Semi-Persistent-Tables) was oriented to the   
+traditional storage model and used dynamic change of globals.  
+This has limits and risks that are avoided here.   
 ### Description
-The base class (User.People) is kind of a common template that   
-you apply for USER, CLERKS, CUSTOMERS, ....  that are strictly   
-separated from each other.  
-I admit that using inheritance may offer similar behaviour.  
-As the original description dates from 2020 it is all designed   
-for the traditional storage model.   
-Sharding, Columnar store, .... is not addressed by the example   
+The base class (User.Common) is a template that you apply for   
+USER, CLERKS, CUSTOMERS, ....  that are separated from each other  
+as before.
+The difference: Class User.Common uses parameter [NoExtent]   
+so it doesn't include a storage definition.  
+The storage to use is then assigned in the individual classes  
+and it is now a static value that defines the Globals to use.
+and is a really simple definition. e.g.:  
+```
+Class User.USR Extends User.Common [ Not NoExtent ]
+{
+Parameter DEFAULTGLOBAL As STRING = "^USR";
+}
+```
+All the rest is done by the compiler.   
+Side effect: POPULATE is specific to every Class/Table    
 ### Prerequisites
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
 ### Installation
 Clone/git pull the repo into any local directory  
 ```
-$ git clone https://github.com/r-cemper/Semi-Persistent-Tables.git
+$ git clone https://github.com/r-cemper/Mapped-Tables.git
 ```
 To build and start the container run:
 ```
@@ -41,8 +49,8 @@ or work from [SMP > Explorer > SQL](http://localhost:52773/csp/sys/exp/%25CSP.UI
 ```
 USER>:sql
 SQL Command Line Shell
-[SQL]USER>>select * from people where MyPopulate('^USER',5)>0
-2.      select * from people where MyPopulate('^USER',5)>0
+[SQL]USER>>select * from USR where USR_POP(5)>0
+2.      select * from USR where USR_POP(5)>0
 
 | ID | City | DOB | Name | SSN |
 | -- | -- | -- | -- | -- |
@@ -57,35 +65,35 @@ statement prepare time(s)/globals/cmds/disk: 0.0528s/39,623/207,252/0ms
           execute time(s)/globals/cmds/disk: 0.0044s/116/3,631/0ms
                                 query class: %sqlcq.USER.cls3
 ---------------------------------------------------------------------------
-[SQL]USER>>cos ZW ^USERD
-^USERD=5
-^USERD(1)=$lb("","Ahmed,Dmitry M.","782-47-5617",50613,"Bensonhurst")
-^USERD(2)=$lb("","Vivaldi,Xavier X.","802-93-5957",31727,"Washington")
-^USERD(3)=$lb("","Quine,Hannah N.","948-78-9049",56042,"Newton")
-^USERD(4)=$lb("","LaRocca,Nellie L.","744-55-4737",56219,"Oak Creek")
-^USERD(5)=$lb("","Gallant,Kim Z.","555-47-4869",49917,"Miami")
+[SQL]USER>>cos ZW ^USRD
+^USRD=5
+^USRD(1)=$lb("","Ahmed,Dmitry M.","782-47-5617",50613,"Bensonhurst")
+^USRD(2)=$lb("","Vivaldi,Xavier X.","802-93-5957",31727,"Washington")
+^USRD(3)=$lb("","Quine,Hannah N.","948-78-9049",56042,"Newton")
+^USRD(4)=$lb("","LaRocca,Nellie L.","744-55-4737",56219,"Oak Creek")
+^USRD(5)=$lb("","Gallant,Kim Z.","555-47-4869",49917,"Miami")
 
 [SQL]USER>>cos ZW ^USERI
-^USERI("NameDob"," AHMED,DMITRY M.",50613,1)=""
-^USERI("NameDob"," GALLANT,KIM Z.",49917,5)=""
-^USERI("NameDob"," LAROCCA,NELLIE L.",56219,4)=""
-^USERI("NameDob"," QUINE,HANNAH N.",56042,3)=""
-^USERI("NameDob"," VIVALDI,XAVIER X.",31727,2)=""
-^USERI("NameIDX"," AHMED,DMITRY M.",1)=$lb("","782-47-5617")
-^USERI("NameIDX"," GALLANT,KIM Z.",5)=$lb("","555-47-4869")
-^USERI("NameIDX"," LAROCCA,NELLIE L.",4)=$lb("","744-55-4737")
-^USERI("NameIDX"," QUINE,HANNAH N.",3)=$lb("","948-78-9049")
-^USERI("NameIDX"," VIVALDI,XAVIER X.",2)=$lb("","802-93-5957")
-^USERI("SSNKey"," 555-47-4869",5)=$lb("","Gallant,Kim Z.")
-^USERI("SSNKey"," 744-55-4737",4)=$lb("","LaRocca,Nellie L.")
-^USERI("SSNKey"," 782-47-5617",1)=$lb("","Ahmed,Dmitry M.")
-^USERI("SSNKey"," 802-93-5957",2)=$lb("","Vivaldi,Xavier X.")
-^USERI("SSNKey"," 948-78-9049",3)=$lb("","Quine,Hannah N.")
+^USRI("NameDob"," AHMED,DMITRY M.",50613,1)=""
+^USRI("NameDob"," GALLANT,KIM Z.",49917,5)=""
+^USRI("NameDob"," LAROCCA,NELLIE L.",56219,4)=""
+^USRI("NameDob"," QUINE,HANNAH N.",56042,3)=""
+^USRI("NameDob"," VIVALDI,XAVIER X.",31727,2)=""
+^USRI("NameIDX"," AHMED,DMITRY M.",1)=$lb("","782-47-5617")
+^USRI("NameIDX"," GALLANT,KIM Z.",5)=$lb("","555-47-4869")
+^USRI("NameIDX"," LAROCCA,NELLIE L.",4)=$lb("","744-55-4737")
+^USRI("NameIDX"," QUINE,HANNAH N.",3)=$lb("","948-78-9049")
+^USRI("NameIDX"," VIVALDI,XAVIER X.",2)=$lb("","802-93-5957")
+^USRI("SSNKey"," 555-47-4869",5)=$lb("","Gallant,Kim Z.")
+^USRI("SSNKey"," 744-55-4737",4)=$lb("","LaRocca,Nellie L.")
+^USRI("SSNKey"," 782-47-5617",1)=$lb("","Ahmed,Dmitry M.")
+^USRI("SSNKey"," 802-93-5957",2)=$lb("","Vivaldi,Xavier X.")
+^USRI("SSNKey"," 948-78-9049",3)=$lb("","Quine,Hannah N.")
 ```
 For temporary use on PPG this looks like this   
 ```
-[SQL]USER>>select * from people where MyPopulate('||PPG',3)>0
-8.      select * from people where MyPopulate('||PPG',3)>0
+[SQL]USER>>select * from PPG where PPG_POP(3)>0
+8.      select * from PPG where PPG_POP(3)>0
 
 | ID | City | DOB | Name | SSN |
 | -- | -- | -- | -- | -- |
@@ -115,10 +123,10 @@ statement prepare time(s)/globals/cmds/disk: 0.0028s/37/4,700/0ms
 ^||PPGI("SSNKey"," 586-48-2608",3)=$lb("","Jenkins,Joshua V.")
 ^||PPGI("SSNKey"," 677-79-9564",1)=$lb("","Nichols,Phyllis F.")
 ```
-And any normal SELECT just requires the STATIC condition to identify the Globals 
+Any normal SELECT just requires the Table name. Nothing else. No tricks
 ```
-[SQL]USER>>SELECT name,city,id from People where SetStorage('||PPG')>0 order by city
-9.      SELECT name,city,id from People where SetStorage('||PPG')>0 order by city
+[SQL]USER>>SELECT name,city,id from PPG order by city
+9.      SELECT name,city,id from PPG order by city
 
 | Name | City | ID |
 | -- | -- | -- |
