@@ -5,6 +5,6 @@ zpm "install passwordless"
 zpm "install iterm"
 zn "USER"
 ;; this should be the place for individual application code.
-do $system.OBJ.Import("People.xml","ck")
+do $system.OBJ.Import("COMMON.xml","ck")
 write "iris.script completed",!,$ZV,!
 halt
